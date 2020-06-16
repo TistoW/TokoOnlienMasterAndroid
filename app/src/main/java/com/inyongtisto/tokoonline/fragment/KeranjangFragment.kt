@@ -22,5 +22,4 @@ class KeranjangFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_keranjang, container, false)
     }
 
-
 }
