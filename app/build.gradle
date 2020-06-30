@@ -45,4 +45,7 @@ dependencies {
 
     //card View
     implementation 'com.android.support:cardview-v7:29.0.0'
+
+    //recyclerview
+    implementation 'com.android.support:recyclerview-v7:29.0.0'
 }
