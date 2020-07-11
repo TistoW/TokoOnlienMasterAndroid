@@ -35,7 +35,8 @@
             android:src="@drawable/gbr_login"/>
 
         <Button
-            android:background="@color/colorPrimary"
+            android:id="@+id/btn_prosesLogin"
+            android:background="@drawable/bg_btn_login1"
             android:layout_marginTop="25dp"
             android:layout_width="170dp"
             android:textColor="@color/white"
@@ -43,8 +44,8 @@
             android:text="Masuk"/>
 
         <Button
-            android:textColor="@color/white"
-            android:background="@color/colorPrimarySoft"
+            android:textColor="#0099FF"
+            android:background="@drawable/bg_btn_login2"
             android:layout_marginTop="10dp"
             android:layout_width="170dp"
             android:layout_height="35dp"

@@ -1,5 +1,6 @@
 package com.inyongtisto.tokoonline
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -7,9 +8,11 @@ import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.inyongtisto.tokoonline.activity.LoginActivity
 import com.inyongtisto.tokoonline.fragment.AkunFragment
 import com.inyongtisto.tokoonline.fragment.HomeFragment
 import com.inyongtisto.tokoonline.fragment.KeranjangFragment
+import com.inyongtisto.tokoonline.helper.SharedPref
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,9 +26,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var menuItem: MenuItem
     private lateinit var bottomNavigationView: BottomNavigationView
 
+    private var statusLogin = false
+
+    private lateinit var s:SharedPref
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        s = SharedPref(this)
 
         setUpBottomNav()
     }
@@ -50,7 +59,12 @@ class MainActivity : AppCompatActivity() {
                     callFargment(1, fragmentKeranjang)
                 }
                 R.id.navigation_akun ->{
-                    callFargment(2, fragmentAkun)
+                    if (s.getStatusLogin()){
+                        callFargment(2, fragmentAkun)
+                    } else {
+                        startActivity(Intent(this, LoginActivity::class.java))
+                    }
+
                 }
             }
 
