@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.inyongtisto.tokoonline.activity.LoginActivity
+import com.inyongtisto.tokoonline.activity.MasukActivity
 import com.inyongtisto.tokoonline.fragment.AkunFragment
 import com.inyongtisto.tokoonline.fragment.HomeFragment
 import com.inyongtisto.tokoonline.fragment.KeranjangFragment
@@ -62,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                     if (s.getStatusLogin()){
                         callFargment(2, fragmentAkun)
                     } else {
-                        startActivity(Intent(this, LoginActivity::class.java))
+                        startActivity(Intent(this, MasukActivity::class.java))
                     }
 
                 }

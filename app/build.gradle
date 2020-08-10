@@ -48,4 +48,11 @@ dependencies {
 
     //recyclerview
     implementation 'com.android.support:recyclerview-v7:29.0.0'
+
+    //Restroift
+    implementation "com.squareup.okhttp3:okhttp:3.12.1"
+    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
 }

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.BaruActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textColor="@color/colorPrimary"
+            android:textSize="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selamat datang di"/>
+
+        <TextView
+            android:textColor="@color/colorPrimary"
+            android:textSize="28dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Toko Online"/>
+
+        <ImageView
+            android:layout_marginTop="15dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/gbr_login"/>
+
+        <Button
+            android:id="@+id/btn_prosesLogin"
+            android:background="@drawable/bg_btn_login1"
+            android:layout_marginTop="25dp"
+            android:layout_width="170dp"
+            android:textColor="@color/white"
+            android:layout_height="35dp"
+            android:text="Masuk"/>
+
+        <Button
+            android:id="@+id/btn_register"
+            android:textColor="#0099FF"
+            android:background="@drawable/bg_btn_login2"
+            android:layout_marginTop="10dp"
+            android:layout_width="170dp"
+            android:layout_height="35dp"
+            android:text="Daftar"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

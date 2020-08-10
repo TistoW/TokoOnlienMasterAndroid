@@ -21,6 +21,8 @@
         </activity>
 
         <activity android:name=".activity.LoginActivity"></activity>
+        <activity android:name=".activity.MasukActivity" />
+        <activity android:name=".activity.RegisterActivity" />
     </application>
 
 </manifest>
