@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object ApiConfig {
-    private const val BASE_URL = "http://192.168.0.147/tokoonline/public/api/"
+    private const val BASE_URL = "http://192.168.0.157/tokoonline/public/api/"
     private val client: Retrofit
         get() {
             val gson = GsonBuilder()
