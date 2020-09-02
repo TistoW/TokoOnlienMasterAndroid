@@ -22,7 +22,7 @@ class MasukActivity : AppCompatActivity() {
 
     private fun mainButton(){
         btn_prosesLogin.setOnClickListener {
-            s.setStatusLogin(true)
+            startActivity(Intent(this, LoginActivity::class.java))
         }
 
         btn_register.setOnClickListener {

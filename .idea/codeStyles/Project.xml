@@ -1,8 +1,5 @@
 <component name="ProjectCodeStyleConfiguration">
   <code_scheme name="Project" version="173">
-    <AndroidXmlCodeStyleSettings>
-      <option name="ARRANGEMENT_SETTINGS_MIGRATED_TO_191" value="true" />
-    </AndroidXmlCodeStyleSettings>
     <JetCodeStyleSettings>
       <option name="CONTINUATION_INDENT_IN_PARAMETER_LISTS" value="true" />
       <option name="CONTINUATION_INDENT_IN_ARGUMENT_LISTS" value="true" />
