@@ -262,6 +262,7 @@
             android:paddingVertical="10dp">
 
             <RelativeLayout
+                android:id="@+id/btn_favorit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_btn_keranjang">
@@ -275,6 +276,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/btn_keranjang"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
