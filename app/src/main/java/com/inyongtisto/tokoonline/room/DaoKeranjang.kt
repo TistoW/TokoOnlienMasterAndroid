@@ -20,7 +20,7 @@ interface DaoKeranjang {
     fun getAll(): List<Produk>
 
     @Query("SELECT * FROM keranjang WHERE id = :id LIMIT 1")
-    fun getNote(id: Int): Produk
+    fun getProduk(id: Int): Produk
 
     @Query("DELETE FROM keranjang")
     fun deleteAll(): Int

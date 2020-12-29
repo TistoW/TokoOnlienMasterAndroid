@@ -21,4 +21,7 @@ public class Produk implements Serializable {
     public String image;
     public String created_at;
     public String updated_at;
+
+    public int jumlah = 1;
+    public boolean selected;
 }

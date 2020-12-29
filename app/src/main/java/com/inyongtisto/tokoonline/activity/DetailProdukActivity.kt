@@ -1,9 +1,11 @@
 package com.inyongtisto.tokoonline.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.google.gson.Gson
 import com.inyongtisto.tokoonline.R
 import com.inyongtisto.tokoonline.helper.Helper
@@ -15,6 +17,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_detail_produk.*
+import kotlinx.android.synthetic.main.item_keranjang.view.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.toolbar.toolbar
 import kotlinx.android.synthetic.main.toolbar_custom.*
@@ -36,7 +39,13 @@ class DetailProdukActivity : AppCompatActivity() {
 
     private fun mainButton() {
         btn_keranjang.setOnClickListener {
-            insert()
+            val data = myDb.daoKeranjang().getProduk(produk.id)
+            if (data == null) {
+                insert()
+            } else {
+                data.jumlah = data.jumlah + 1
+                update(data)
+            }
         }
 
         btn_favorit.setOnClickListener {
@@ -47,6 +56,10 @@ class DetailProdukActivity : AppCompatActivity() {
                 println(note.harga)
             }
         }
+
+        btn_toKeranjang.setOnClickListener {
+//            startActivity(Intent(this, ))
+        }
     }
 
     private fun insert() {
@@ -56,6 +69,18 @@ class DetailProdukActivity : AppCompatActivity() {
                 .subscribe {
                     checkKeranjang()
                     Log.d("respons", "data inserted")
+                    Toast.makeText(this, "Berhasil menambah kekeranjang", Toast.LENGTH_SHORT).show()
+                })
+    }
+
+    private fun update(data: Produk) {
+        CompositeDisposable().add(Observable.fromCallable { myDb.daoKeranjang().update(data) }
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    checkKeranjang()
+                    Log.d("respons", "data inserted")
+                    Toast.makeText(this, "Berhasil menambah kekeranjang", Toast.LENGTH_SHORT).show()
                 })
     }
 

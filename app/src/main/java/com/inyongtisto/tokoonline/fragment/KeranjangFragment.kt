@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.inyongtisto.tokoonline.R
+import com.inyongtisto.tokoonline.adapter.AdapterKeranjang
 import com.inyongtisto.tokoonline.adapter.AdapterProduk
 import com.inyongtisto.tokoonline.room.MyDatabase
 
@@ -36,7 +37,7 @@ class KeranjangFragment : Fragment() {
         val layoutManager = LinearLayoutManager(activity)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
 
-        rvProduk.adapter = AdapterProduk(requireActivity(), listProduk)
+        rvProduk.adapter = AdapterKeranjang(requireActivity(), listProduk)
         rvProduk.layoutManager = layoutManager
     }
 
