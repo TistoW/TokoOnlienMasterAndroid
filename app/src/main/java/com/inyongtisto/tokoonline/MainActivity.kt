@@ -1,12 +1,16 @@
 package com.inyongtisto.tokoonline
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.inyongtisto.tokoonline.activity.LoginActivity
 import com.inyongtisto.tokoonline.activity.MasukActivity
@@ -29,7 +33,9 @@ class MainActivity : AppCompatActivity() {
 
     private var statusLogin = false
 
-    private lateinit var s:SharedPref
+    private lateinit var s: SharedPref
+
+    private var dariDetail: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,9 +44,17 @@ class MainActivity : AppCompatActivity() {
         s = SharedPref(this)
 
         setUpBottomNav()
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessage, IntentFilter("event:keranjang"))
     }
 
-    fun setUpBottomNav(){
+    val mMessage: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            dariDetail = true
+        }
+    }
+
+    fun setUpBottomNav() {
         fm.beginTransaction().add(R.id.container, fragmentHome).show(fragmentHome).commit()
         fm.beginTransaction().add(R.id.container, fragmentKeranjang).hide(fragmentKeranjang).commit()
         fm.beginTransaction().add(R.id.container, fragmentAkun).hide(fragmentAkun).commit()
@@ -52,15 +66,15 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
 
-            when(item.itemId) {
-                R.id.navigation_home ->{
+            when (item.itemId) {
+                R.id.navigation_home -> {
                     callFargment(0, fragmentHome)
                 }
-                R.id.navigation_keranjang ->{
+                R.id.navigation_keranjang -> {
                     callFargment(1, fragmentKeranjang)
                 }
-                R.id.navigation_akun ->{
-                    if (s.getStatusLogin()){
+                R.id.navigation_akun -> {
+                    if (s.getStatusLogin()) {
                         callFargment(2, fragmentAkun)
                     } else {
                         startActivity(Intent(this, MasukActivity::class.java))
@@ -73,10 +87,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun callFargment(int: Int, fragment: Fragment){
+    fun callFargment(int: Int, fragment: Fragment) {
         menuItem = menu.getItem(int)
         menuItem.isChecked = true
         fm.beginTransaction().hide(active).show(fragment).commit()
         active = fragment
+    }
+
+    override fun onResume() {
+        if (dariDetail) {
+            dariDetail = false
+            callFargment(1, fragmentKeranjang)
+        }
+        super.onResume()
     }
 }

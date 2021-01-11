@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.gson.Gson
 import com.inyongtisto.tokoonline.R
 import com.inyongtisto.tokoonline.helper.Helper
@@ -17,8 +18,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_detail_produk.*
-import kotlinx.android.synthetic.main.item_keranjang.view.*
-import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.toolbar.toolbar
 import kotlinx.android.synthetic.main.toolbar_custom.*
 
@@ -43,7 +42,7 @@ class DetailProdukActivity : AppCompatActivity() {
             if (data == null) {
                 insert()
             } else {
-                data.jumlah = data.jumlah + 1
+                data.jumlah += 1
                 update(data)
             }
         }
@@ -58,7 +57,9 @@ class DetailProdukActivity : AppCompatActivity() {
         }
 
         btn_toKeranjang.setOnClickListener {
-//            startActivity(Intent(this, ))
+            val intent = Intent("event:keranjang")
+            LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+            onBackPressed()
         }
     }
 
