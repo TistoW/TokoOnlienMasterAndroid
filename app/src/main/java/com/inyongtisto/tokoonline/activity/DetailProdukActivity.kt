@@ -12,6 +12,7 @@ import com.inyongtisto.tokoonline.R
 import com.inyongtisto.tokoonline.helper.Helper
 import com.inyongtisto.tokoonline.model.Produk
 import com.inyongtisto.tokoonline.room.MyDatabase
+import com.inyongtisto.tokoonline.util.Config
 import com.squareup.picasso.Picasso
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -105,7 +106,7 @@ class DetailProdukActivity : AppCompatActivity() {
         tv_harga.text = Helper().gantiRupiah(produk.harga)
         tv_deskripsi.text = produk.deskripsi
 
-        val img = "http://192.168.43.232/tokoonline/public/storage/produk/" + produk.image
+        val img = Config.productUrl + produk.image
         Picasso.get()
                 .load(img)
                 .placeholder(R.drawable.product)

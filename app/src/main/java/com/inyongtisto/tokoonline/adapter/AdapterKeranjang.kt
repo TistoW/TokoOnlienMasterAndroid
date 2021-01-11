@@ -1,36 +1,27 @@
 package com.inyongtisto.tokoonline.adapter
 
 import android.app.Activity
-import android.content.Context
-import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
-import com.inyongtisto.tokoonline.MainActivity
 import com.inyongtisto.tokoonline.R
-import com.inyongtisto.tokoonline.activity.DetailProdukActivity
-import com.inyongtisto.tokoonline.activity.LoginActivity
 import com.inyongtisto.tokoonline.helper.Helper
 import com.inyongtisto.tokoonline.model.Produk
 import com.inyongtisto.tokoonline.room.MyDatabase
+import com.inyongtisto.tokoonline.util.Config
 import com.squareup.picasso.Picasso
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.text.NumberFormat
-import java.util.*
 import kotlin.collections.ArrayList
 
-class AdapterKeranjang(var activity: Activity, var data: ArrayList<Produk>) : RecyclerView.Adapter<AdapterKeranjang.Holder>() {
+class AdapterKeranjang(var activity: Activity, var data: ArrayList<Produk>, var listener: Listeners) : RecyclerView.Adapter<AdapterKeranjang.Holder>() {
 
     class Holder(view: View) : RecyclerView.ViewHolder(view) {
         val tvNama = view.findViewById<TextView>(R.id.tv_nama)
@@ -58,15 +49,16 @@ class AdapterKeranjang(var activity: Activity, var data: ArrayList<Produk>) : Re
     override fun onBindViewHolder(holder: Holder, position: Int) {
 
         val produk = data[position]
+        val harga = Integer.valueOf(produk.harga)
 
         holder.tvNama.text = produk.name
-        holder.tvHarga.text = Helper().gantiRupiah(produk.harga)
+        holder.tvHarga.text = Helper().gantiRupiah(harga * produk.jumlah)
 
         var jumlah = data[position].jumlah
 
 
         holder.tvJumlah.text = jumlah.toString()
-        val image = "http://192.168.43.232/tokoonline/public/storage/produk/" + data[position].image
+        val image = Config.productUrl + data[position].image
         Picasso.get()
                 .load(image)
                 .placeholder(R.drawable.product)
@@ -80,6 +72,7 @@ class AdapterKeranjang(var activity: Activity, var data: ArrayList<Produk>) : Re
             update(produk)
 
             holder.tvJumlah.text = jumlah.toString()
+            holder.tvHarga.text = Helper().gantiRupiah(harga * jumlah)
         }
 
         holder.btnKurang.setOnClickListener {
@@ -90,12 +83,18 @@ class AdapterKeranjang(var activity: Activity, var data: ArrayList<Produk>) : Re
             update(produk)
 
             holder.tvJumlah.text = jumlah.toString()
+            holder.tvHarga.text = Helper().gantiRupiah(harga * jumlah)
         }
 
         holder.btnDelete.setOnClickListener {
-            notifyItemRemoved(position)
             delete(produk)
+            listener.onDelete(position)
         }
+    }
+
+    interface Listeners {
+        fun onUpdate()
+        fun onDelete(position: Int)
     }
 
     private fun update(data: Produk) {
@@ -104,6 +103,7 @@ class AdapterKeranjang(var activity: Activity, var data: ArrayList<Produk>) : Re
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
+                    listener.onUpdate()
                 })
     }
 
