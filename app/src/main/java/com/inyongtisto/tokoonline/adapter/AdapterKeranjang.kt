@@ -55,9 +55,14 @@ class AdapterKeranjang(var activity: Activity, var data: ArrayList<Produk>, var 
         holder.tvHarga.text = Helper().gantiRupiah(harga * produk.jumlah)
 
         var jumlah = data[position].jumlah
-
-
         holder.tvJumlah.text = jumlah.toString()
+
+        holder.checkBox.isChecked = produk.selected
+        holder.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
+            produk.selected = isChecked
+            update(produk)
+        }
+
         val image = Config.productUrl + data[position].image
         Picasso.get()
                 .load(image)

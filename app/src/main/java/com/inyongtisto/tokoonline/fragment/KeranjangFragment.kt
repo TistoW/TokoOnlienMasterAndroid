@@ -1,20 +1,24 @@
 package com.inyongtisto.tokoonline.fragment
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.inyongtisto.tokoonline.R
+import com.inyongtisto.tokoonline.activity.PengirimanActivity
 import com.inyongtisto.tokoonline.adapter.AdapterKeranjang
 import com.inyongtisto.tokoonline.helper.Helper
+import com.inyongtisto.tokoonline.model.Produk
 import com.inyongtisto.tokoonline.room.MyDatabase
 
 /**
@@ -34,13 +38,13 @@ class KeranjangFragment : Fragment() {
         return view
     }
 
-
+    lateinit var adapter: AdapterKeranjang
+    var listProduk = ArrayList<Produk>()
     private fun displayProduk() {
-        val listProduk = myDb.daoKeranjang().getAll() as ArrayList
+        listProduk = myDb.daoKeranjang().getAll() as ArrayList
         val layoutManager = LinearLayoutManager(activity)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
 
-        lateinit var adapter: AdapterKeranjang
         adapter = AdapterKeranjang(requireActivity(), listProduk, object : AdapterKeranjang.Listeners {
             override fun onUpdate() {
                 hitungTotal()
@@ -60,11 +64,17 @@ class KeranjangFragment : Fragment() {
         val listProduk = myDb.daoKeranjang().getAll() as ArrayList
 
         var totalHarga = 0
+        var isSelectedAll = true
         for (produk in listProduk) {
-            val harga = Integer.valueOf(produk.harga)
-            totalHarga += (harga * produk.jumlah)
+            if (produk.selected){
+                val harga = Integer.valueOf(produk.harga)
+                totalHarga += (harga * produk.jumlah)
+            } else {
+                isSelectedAll = false
+            }
         }
 
+        cbAll.isChecked = isSelectedAll
         tvTotal.text = Helper().gantiRupiah(totalHarga)
     }
 
@@ -74,7 +84,17 @@ class KeranjangFragment : Fragment() {
         }
 
         btnBayar.setOnClickListener {
+            startActivity(Intent(requireActivity(), PengirimanActivity::class.java))
+        }
 
+        cbAll.setOnClickListener {
+            for (i in listProduk.indices){
+                val produk = listProduk[i]
+                produk.selected = cbAll.isChecked
+
+                listProduk[i] = produk
+            }
+            adapter.notifyDataSetChanged()
         }
     }
 
@@ -82,11 +102,13 @@ class KeranjangFragment : Fragment() {
     lateinit var rvProduk: RecyclerView
     lateinit var tvTotal: TextView
     lateinit var btnBayar: TextView
+    lateinit var cbAll: CheckBox
     private fun init(view: View) {
         btnDelete = view.findViewById(R.id.btn_delete)
         rvProduk = view.findViewById(R.id.rv_produk)
         tvTotal = view.findViewById(R.id.tv_total)
         btnBayar = view.findViewById(R.id.btn_bayar)
+        cbAll = view.findViewById(R.id.cb_all)
     }
 
     override fun onResume() {

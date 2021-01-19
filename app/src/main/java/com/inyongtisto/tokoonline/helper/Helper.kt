@@ -1,5 +1,10 @@
 package com.inyongtisto.tokoonline.helper
 
+import android.app.Activity
+import android.content.Context
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import kotlinx.android.synthetic.main.toolbar.*
 import java.text.NumberFormat
 import java.util.*
 
@@ -14,5 +19,12 @@ class Helper {
 
     fun gantiRupiah(value: Boolean): String {
         return NumberFormat.getCurrencyInstance(Locale("in", "ID")).format(value)
+    }
+
+    fun setToolbar(activity: Activity, toolbar: Toolbar, title: String) {
+        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+        activity.supportActionBar!!.title = title
+        activity.supportActionBar!!.setDisplayShowHomeEnabled(true)
+        activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 }

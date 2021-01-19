@@ -29,6 +29,9 @@
         <activity android:name=".activity.MasukActivity" />
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.DetailProdukActivity" />
+        <activity android:name=".activity.PengirimanActivity" />
+        <activity android:name=".activity.ListAlamatActivity" />
+        <activity android:name=".activity.TambahAlamatActivity" />
     </application>
 
 </manifest>

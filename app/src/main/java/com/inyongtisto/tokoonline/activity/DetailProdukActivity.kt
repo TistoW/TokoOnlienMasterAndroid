@@ -115,10 +115,7 @@ class DetailProdukActivity : AppCompatActivity() {
                 .into(image)
 
         // setToolbar
-        setSupportActionBar(toolbar)
-        supportActionBar!!.title = produk.name
-        supportActionBar!!.setDisplayShowHomeEnabled(true)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        Helper().setToolbar(this, toolbar, produk.name)
     }
 
     override fun onSupportNavigateUp(): Boolean {
