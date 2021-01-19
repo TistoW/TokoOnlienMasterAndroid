@@ -102,12 +102,15 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/div_provinsi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/bg_btn_google">
+                android:background="@drawable/bg_btn_google"
+                android:visibility="gone">
 
                 <Spinner
+                    android:id="@+id/spn_provinsi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -116,12 +119,15 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/div_kota"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/bg_btn_google">
+                android:background="@drawable/bg_btn_google"
+                android:visibility="gone">
 
                 <Spinner
+                    android:id="@+id/spn_kota"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -130,18 +136,28 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/div_kecamatan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/bg_btn_google">
+                android:background="@drawable/bg_btn_google"
+                android:visibility="gone">
 
                 <Spinner
+                    android:id="@+id/spn_kecamatan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:textSize="14dp" />
 
             </RelativeLayout>
+
+            <ProgressBar
+                android:id="@+id/pb"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
