@@ -28,6 +28,7 @@
                 android:background="@drawable/bg_btn_google">
 
                 <EditText
+                    android:id="@+id/edt_nama"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -44,11 +45,14 @@
                 android:background="@drawable/bg_btn_google">
 
                 <EditText
+                    android:id="@+id/edt_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:background="@null"
                     android:hint="Nomor telp*"
+                    android:inputType="number"
+                    android:maxLength="14"
                     android:textSize="14dp" />
 
             </RelativeLayout>
@@ -60,11 +64,14 @@
                 android:background="@drawable/bg_btn_google">
 
                 <EditText
+                    android:id="@+id/edt_alamat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:background="@null"
                     android:hint="Jalan, No, RT/RW*"
+                    android:inputType="textMultiLine"
+                    android:lines="3"
                     android:textSize="14dp" />
 
             </RelativeLayout>
@@ -76,27 +83,12 @@
                 android:background="@drawable/bg_btn_google">
 
                 <EditText
+                    android:id="@+id/edt_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:background="@null"
-                    android:hint="Desa/Kelurahan/apartmen*"
-                    android:textSize="14dp" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/bg_btn_google">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:background="@null"
-                    android:hint="Alamat tambahan*"
+                    android:hint="Rumah/kos/kantor*"
                     android:textSize="14dp" />
 
             </RelativeLayout>
@@ -166,16 +158,20 @@
                 android:background="@drawable/bg_btn_google">
 
                 <EditText
+                    android:id="@+id/edt_kodePos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:background="@null"
                     android:hint="Kode Pos*"
+                    android:inputType="number"
+                    android:maxLength="6"
                     android:textSize="14dp" />
 
             </RelativeLayout>
 
             <Button
+                android:id="@+id/btn_simpan"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_gravity="center_horizontal"
