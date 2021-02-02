@@ -254,9 +254,7 @@ class TambahAlamatActivity : AppCompatActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     toast("Insert data success")
-                    for (alamat in myDb.daoAlamat().getAll()) {
-                        Log.d("Alamat", "nama:" + alamat.name + " - " + alamat.alamat + " - " + alamat.kota)
-                    }
+                    onBackPressed()
                 })
     }
 
