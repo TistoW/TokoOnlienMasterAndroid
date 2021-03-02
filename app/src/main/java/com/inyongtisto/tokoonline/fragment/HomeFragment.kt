@@ -3,6 +3,7 @@ package com.inyongtisto.tokoonline.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -43,6 +44,7 @@ class HomeFragment : Fragment() {
     }
 
     fun displayProduk() {
+        Log.d("cekini", "size:" + listProduk.size)
         val arrSlider = ArrayList<Int>()
         arrSlider.add(R.drawable.slider1)
         arrSlider.add(R.drawable.slider2)
@@ -74,13 +76,17 @@ class HomeFragment : Fragment() {
     fun getProduk() {
         ApiConfig.instanceRetrofit.getProduk().enqueue(object : Callback<ResponModel> {
             override fun onFailure(call: Call<ResponModel>, t: Throwable) {
-
             }
 
             override fun onResponse(call: Call<ResponModel>, response: Response<ResponModel>) {
                 val res = response.body()!!
                 if (res.success == 1) {
-                    listProduk = res.produks
+                    val arrayProduk = ArrayList<Produk>()
+                    for (p in res.produks) {
+                        p.discount = 100000
+                        arrayProduk.add(p)
+                    }
+                    listProduk = arrayProduk
                     displayProduk()
                 }
             }

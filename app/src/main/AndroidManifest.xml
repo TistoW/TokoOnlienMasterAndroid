@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.BaruActivity"></activity>
+        <activity android:name=".activity.BaruActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,13 +25,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.LoginActivity"></activity>
+        <activity android:name=".activity.LoginActivity"/>
         <activity android:name=".activity.MasukActivity" />
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.DetailProdukActivity" />
         <activity android:name=".activity.PengirimanActivity" />
         <activity android:name=".activity.ListAlamatActivity" />
-        <activity android:name=".activity.TambahAlamatActivity" />
+        <activity android:name=".activity.TambahAlamatActivity" >
+
+        </activity>
     </application>
 
 </manifest>
