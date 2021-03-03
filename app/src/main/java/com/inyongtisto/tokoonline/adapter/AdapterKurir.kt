@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,7 +60,9 @@ class AdapterKurir(var data: ArrayList<Costs>, var kurir: String, var listener: 
 
         val a = data[position]
 
-//        holder.rd.isChecked = a.isSelected
+
+        holder.rd.isChecked = a.isActive
+
         holder.tvNama.text = kurir + " " + a.service
         val cost = a.cost[0]
         holder.tvLamaPengiriman.text = cost.etd + " hari kerja"
@@ -67,10 +70,10 @@ class AdapterKurir(var data: ArrayList<Costs>, var kurir: String, var listener: 
         holder.tvBerat.text = "1 kg x " + Helper().gantiRupiah(cost.value)
 //        holder.tvAlamat.text = a.alamat + ", " + a.kota + ", " + a.kecamatan + ", " + a.kodepos + ", (" + a.type + ")"
 //
-//        holder.rd.setOnClickListener {
-//            a.isSelected = true
-//            listener.onClicked(a)
-//        }
+        holder.rd.setOnClickListener {
+            a.isActive = true
+            listener.onClicked(a, holder.adapterPosition)
+        }
 //
 //        holder.layout.setOnClickListener {
 //            a.isSelected = true
@@ -79,7 +82,7 @@ class AdapterKurir(var data: ArrayList<Costs>, var kurir: String, var listener: 
     }
 
     interface Listeners {
-        fun onClicked(data: Alamat)
+        fun onClicked(data: Costs, index: Int)
     }
 
 }
