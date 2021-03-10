@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -20,6 +21,10 @@ import com.inyongtisto.tokoonline.adapter.AdapterKeranjang
 import com.inyongtisto.tokoonline.helper.Helper
 import com.inyongtisto.tokoonline.model.Produk
 import com.inyongtisto.tokoonline.room.MyDatabase
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
 /**
  * A simple [Fragment] subclass.
@@ -80,24 +85,49 @@ class KeranjangFragment : Fragment() {
 
     private fun mainButton() {
         btnDelete.setOnClickListener {
+            val listDelete = ArrayList<Produk>()
+            for (p in listProduk) {
+                if (p.selected) listDelete.add(p)
+            }
 
+            delete(listDelete)
         }
 
         btnBayar.setOnClickListener {
-            val intent = Intent(requireActivity(), PengirimanActivity::class.java)
-            intent.putExtra("extra", "" + totalHarga)
-            startActivity(intent)
+
+            var isThereProduk = false
+            for (p in listProduk) {
+                if (p.selected) isThereProduk = true
+            }
+
+            if (isThereProduk) {
+                val intent = Intent(requireActivity(), PengirimanActivity::class.java)
+                intent.putExtra("extra", "" + totalHarga)
+                startActivity(intent)
+            } else {
+                Toast.makeText(requireContext(), "Tidak ada produk yg terpilih", Toast.LENGTH_SHORT).show()
+            }
         }
 
         cbAll.setOnClickListener {
             for (i in listProduk.indices) {
                 val produk = listProduk[i]
                 produk.selected = cbAll.isChecked
-
                 listProduk[i] = produk
             }
             adapter.notifyDataSetChanged()
         }
+    }
+
+    private fun delete(data: ArrayList<Produk>) {
+        CompositeDisposable().add(Observable.fromCallable { myDb.daoKeranjang().delete(data) }
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    listProduk.clear()
+                    listProduk.addAll(myDb.daoKeranjang().getAll() as ArrayList)
+                    adapter.notifyDataSetChanged()
+                })
     }
 
     lateinit var btnDelete: ImageView

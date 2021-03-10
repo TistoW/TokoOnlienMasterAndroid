@@ -13,6 +13,9 @@ interface DaoKeranjang {
     @Delete
     fun delete(data: Produk)
 
+    @Delete
+    fun delete(data: List<Produk>)
+
     @Update
     fun update(data: Produk): Int
 

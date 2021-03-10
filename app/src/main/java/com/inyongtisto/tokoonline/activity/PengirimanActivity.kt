@@ -8,20 +8,28 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.inyongtisto.tokoonline.MainActivity
 import com.inyongtisto.tokoonline.R
 import com.inyongtisto.tokoonline.adapter.AdapterAlamat
 import com.inyongtisto.tokoonline.adapter.AdapterKurir
+import com.inyongtisto.tokoonline.app.ApiConfig
 import com.inyongtisto.tokoonline.app.ApiConfigAlamat
 import com.inyongtisto.tokoonline.helper.Helper
+import com.inyongtisto.tokoonline.helper.SharedPref
 import com.inyongtisto.tokoonline.model.Alamat
+import com.inyongtisto.tokoonline.model.Chekout
+import com.inyongtisto.tokoonline.model.ResponModel
 import com.inyongtisto.tokoonline.model.rajaongkir.Costs
 import com.inyongtisto.tokoonline.model.rajaongkir.ResponOngkir
 import com.inyongtisto.tokoonline.model.rajaongkir.Result
 import com.inyongtisto.tokoonline.room.MyDatabase
 import com.inyongtisto.tokoonline.util.ApiKey
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_pengiriman.*
 import kotlinx.android.synthetic.main.activity_tambah_alamat.*
+import kotlinx.android.synthetic.main.activity_tambah_alamat.pb
 import kotlinx.android.synthetic.main.toolbar.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -92,6 +100,57 @@ class PengirimanActivity : AppCompatActivity() {
         btn_tambahAlamat.setOnClickListener {
             startActivity(Intent(this, ListAlamatActivity::class.java))
         }
+
+        btn_bayar.setOnClickListener {
+            bayar()
+        }
+    }
+
+    private fun bayar() {
+        val user = SharedPref(this).getUser()
+        val a = myDb.daoAlamat().getByStatus(true)!!
+
+        val listProduk = myDb.daoKeranjang().getAll() as ArrayList
+        var totalItem = 0
+        var totalHarga = 0
+        val produks = ArrayList<Chekout.Item>()
+        for (p in listProduk) {
+            if (p.selected) {
+                totalItem += p.jumlah
+                totalHarga += (p.jumlah + Integer.valueOf(p.harga))
+
+                val produk = Chekout.Item()
+                produk.id = "" + p.id
+                produk.total_item = "" + p.jumlah
+                produk.total_harga = "" + (p.jumlah + Integer.valueOf(p.harga))
+                produk.catatan = "catatan baru"
+
+                produks.add(produk)
+            }
+        }
+
+        val chekout = Chekout()
+        chekout.user_id = "17"
+        chekout.total_item = "" + totalItem
+        chekout.total_harga = "" + totalHarga
+        chekout.name = a.name
+        chekout.phone = a.phone
+        chekout.produks = produks
+
+        ApiConfig.instanceRetrofit.chekout(chekout).enqueue(object : Callback<ResponModel> {
+            override fun onFailure(call: Call<ResponModel>, t: Throwable) {
+                Toast.makeText(this@PengirimanActivity, "Error:" + t.message, Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<ResponModel>, response: Response<ResponModel>) {
+                val respon = response.body()!!
+                if (respon.success == 1) {
+                    Toast.makeText(this@PengirimanActivity, "Berhasil kirim ke server", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this@PengirimanActivity, "Error:" + respon.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
     }
 
     private fun getOngkir(kurir: String) {

@@ -361,6 +361,7 @@
             </androidx.cardview.widget.CardView>
 
             <Button
+                android:id="@+id/btn_bayar"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_gravity="center_horizontal"
