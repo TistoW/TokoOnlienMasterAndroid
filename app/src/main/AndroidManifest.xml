@@ -34,6 +34,7 @@
         <activity android:name=".activity.TambahAlamatActivity" >
 
         </activity>
+        <activity android:name=".activity.PembayaranActivity" />
     </application>
 
 </manifest>
