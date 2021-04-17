@@ -100,7 +100,7 @@ class PengirimanActivity : AppCompatActivity() {
     }
 
     private fun bayar() {
-        val user = SharedPref(this).getUser()
+        val user = SharedPref(this).getUser()!!
         val a = myDb.daoAlamat().getByStatus(true)!!
 
         val listProduk = myDb.daoKeranjang().getAll() as ArrayList
@@ -122,7 +122,7 @@ class PengirimanActivity : AppCompatActivity() {
         }
 
         val chekout = Chekout()
-        chekout.user_id = "17"
+        chekout.user_id = "" + user.id
         chekout.total_item = "" + totalItem
         chekout.total_harga = "" + totalHarga
         chekout.name = a.name
@@ -185,6 +185,9 @@ class PengirimanActivity : AppCompatActivity() {
             arrayOngkir.add(ongkir)
         }
         setTotal(arrayOngkir[0].cost[0].value)
+        ongkir = arrayOngkir[0].cost[0].value
+        kurir = _kurir
+        jasaKirim = arrayOngkir[0].service
 
         val layoutManager = LinearLayoutManager(this)
         layoutManager.orientation = LinearLayoutManager.VERTICAL

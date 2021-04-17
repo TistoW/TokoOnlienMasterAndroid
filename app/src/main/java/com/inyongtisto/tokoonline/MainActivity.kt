@@ -79,7 +79,6 @@ class MainActivity : AppCompatActivity() {
                     } else {
                         startActivity(Intent(this, MasukActivity::class.java))
                     }
-
                 }
             }
 
