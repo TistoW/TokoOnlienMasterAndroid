@@ -35,6 +35,7 @@
 
         </activity>
         <activity android:name=".activity.PembayaranActivity" />
+        <activity android:name=".activity.SuccessActivity" />
     </application>
 
 </manifest>
