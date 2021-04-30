@@ -19,4 +19,5 @@ class Transaksi {
     var expired_at = ""
     var updated_at = ""
     var created_at = ""
+    val details = ArrayList<DetailTransaksi>()
 }
