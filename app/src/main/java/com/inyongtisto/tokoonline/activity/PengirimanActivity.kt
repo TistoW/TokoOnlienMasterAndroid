@@ -78,7 +78,7 @@ class PengirimanActivity : AppCompatActivity() {
             val a = myDb.daoAlamat().getByStatus(true)!!
             tv_nama.text = a.name
             tv_phone.text = a.phone
-            tv_alamat.text = a.alamat + ", " + a.kota + ", " + a.kecamatan + ", " + a.kodepos + ", (" + a.type + ")"
+            tv_alamat.text = a.alamat + ", " + a.kota + ", " + a.kodepos + ", (" + a.type + ")"
             btn_tambahAlamat.text = "Ubah Alamat"
 
             getOngkir("JNE")
@@ -130,6 +130,7 @@ class PengirimanActivity : AppCompatActivity() {
         chekout.jasa_pengiriaman = jasaKirim
         chekout.ongkir = ongkir
         chekout.kurir = kurir
+        chekout.detail_lokasi = tv_alamat.text.toString()
         chekout.total_transfer = "" + (totalHarga + Integer.valueOf(ongkir))
         chekout.produks = produks
 

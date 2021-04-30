@@ -7,6 +7,7 @@ class Chekout {
     lateinit var name: String
     lateinit var phone: String
     lateinit var kurir: String
+    lateinit var detail_lokasi: String
     lateinit var jasa_pengiriaman: String
     lateinit var ongkir: String
     lateinit var total_transfer: String

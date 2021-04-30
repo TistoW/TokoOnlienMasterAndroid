@@ -1,8 +1,10 @@
 package com.inyongtisto.tokoonline.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
 import com.inyongtisto.tokoonline.R
 import com.inyongtisto.tokoonline.adapter.AdapterRiwayat
 import com.inyongtisto.tokoonline.app.ApiConfig
@@ -49,7 +51,10 @@ class RiwayatActivity : AppCompatActivity() {
 
         rv_riwayat.adapter = AdapterRiwayat(transaksis, object : AdapterRiwayat.Listeners {
             override fun onClicked(data: Transaksi) {
-
+                val json = Gson().toJson(data, Transaksi::class.java)
+                val intent = Intent(this@RiwayatActivity, DetailTransaksiActivity::class.java)
+                intent.putExtra("transaksi", json)
+                startActivity(intent)
             }
         })
         rv_riwayat.layoutManager = layoutManager

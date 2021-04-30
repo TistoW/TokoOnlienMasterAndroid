@@ -37,6 +37,7 @@
         <activity android:name=".activity.PembayaranActivity" />
         <activity android:name=".activity.SuccessActivity" />
         <activity android:name=".activity.RiwayatActivity" />
+        <activity android:name=".activity.DetailTransaksiActivity" />
     </application>
 
 </manifest>
