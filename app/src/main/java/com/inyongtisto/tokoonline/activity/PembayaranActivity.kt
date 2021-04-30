@@ -68,10 +68,12 @@ class PembayaranActivity : AppCompatActivity() {
 
                     val jsBank = Gson().toJson(bank, Bank::class.java)
                     val jsTransaksi = Gson().toJson(respon.transaksi, Transaksi::class.java)
+                    val jsChekout = Gson().toJson(chekout, Chekout::class.java)
 
                     val intent = Intent(this@PembayaranActivity, SuccessActivity::class.java)
                     intent.putExtra("bank", jsBank)
                     intent.putExtra("transaksi", jsTransaksi)
+                    intent.putExtra("chekout", jsChekout)
                     startActivity(intent)
 
                 } else {

@@ -59,4 +59,9 @@ interface ApiService {
             @Field("weight") weight: Int,
             @Field("courier") courier: String
     ): Call<ResponOngkir>
+
+    @GET("chekout/user/{id}")
+    fun getRiwayat(
+            @Path("id") id: Int
+    ): Call<ResponModel>
 }

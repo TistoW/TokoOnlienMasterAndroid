@@ -9,11 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.inyongtisto.tokoonline.MainActivity
 
 import com.inyongtisto.tokoonline.R
 import com.inyongtisto.tokoonline.activity.LoginActivity
+import com.inyongtisto.tokoonline.activity.RiwayatActivity
 import com.inyongtisto.tokoonline.helper.SharedPref
 
 /**
@@ -27,6 +29,9 @@ class AkunFragment : Fragment() {
     lateinit var tvEmail: TextView
     lateinit var tvPhone: TextView
 
+
+    lateinit var btnRiwayat: RelativeLayout
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -37,12 +42,19 @@ class AkunFragment : Fragment() {
 
         s = SharedPref(requireActivity())
 
+        mainButton()
+        setData()
+        return view
+    }
+
+    fun mainButton(){
         btnLogout.setOnClickListener {
             s.setStatusLogin(false)
         }
 
-        setData()
-        return view
+        btnRiwayat.setOnClickListener {
+            startActivity(Intent(requireActivity(), RiwayatActivity::class.java))
+        }
     }
 
     fun setData() {
@@ -66,6 +78,7 @@ class AkunFragment : Fragment() {
         tvNama = view.findViewById(R.id.tv_nama)
         tvEmail = view.findViewById(R.id.tv_email)
         tvPhone = view.findViewById(R.id.tv_phone)
+        btnRiwayat = view.findViewById(R.id.btn_riwayat)
     }
 
 

@@ -25,6 +25,9 @@ interface DaoKeranjang {
     @Query("SELECT * FROM keranjang WHERE id = :id LIMIT 1")
     fun getProduk(id: Int): Produk
 
+    @Query("DELETE FROM keranjang WHERE id = :id")
+    fun deleteById(id: String): Int
+
     @Query("DELETE FROM keranjang")
     fun deleteAll(): Int
 }
