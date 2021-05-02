@@ -64,4 +64,7 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation "androidx.room:room-runtime:2.2.5"
     annotationProcessor "androidx.room:room-compiler:2.2.5"
+
+    // sweet Alert
+    implementation 'com.github.thomper:sweet-alert-dialog:1.4.0'
 }
