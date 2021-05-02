@@ -13,6 +13,7 @@ import com.inyongtisto.tokoonline.R
 import com.inyongtisto.tokoonline.helper.Helper
 import com.inyongtisto.tokoonline.model.Alamat
 import com.inyongtisto.tokoonline.model.Transaksi
+import java.text.SimpleDateFormat
 import kotlin.collections.ArrayList
 
 class AdapterRiwayat(var data: ArrayList<Transaksi>, var listener: Listeners) : RecyclerView.Adapter<AdapterRiwayat.Holder>() {
@@ -48,8 +49,12 @@ class AdapterRiwayat(var data: ArrayList<Transaksi>, var listener: Listeners) : 
         holder.tvHarga.text = Helper().gantiRupiah(a.total_transfer)
         holder.tvJumlah.text = a.total_item + " Items"
         holder.tvStatus.text = a.status
-        holder.tvTangal.text = a.created_at
 
+        // 2021-04-30 18:30:20 //24
+        // jam 1   k || 01  kk
+        // 09:20:20 am 12/pm/am
+        val formatBaru = "d MMM yyyy"
+        holder.tvTangal.text = Helper().convertTanggal(a.created_at, formatBaru)
         var color = context.getColor(R.color.menungu)
         if (a.status == "SELESAI") color = context.getColor(R.color.selesai)
         else if (a.status == "BATAL") color = context.getColor(R.color.batal)
