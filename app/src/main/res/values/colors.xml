@@ -12,4 +12,8 @@
     <color name="dark">#121931</color>
     <color name="biru">#0099FF</color>
 
+    <color name="menungu">#FF9800</color>
+    <color name="selesai">#4CAF50</color>
+    <color name="batal">#E91E1E</color>
+
 </resources>

@@ -32,10 +32,7 @@ class AkunFragment : Fragment() {
 
     lateinit var btnRiwayat: RelativeLayout
 
-    override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_akun, container, false)
         init(view)
@@ -47,7 +44,7 @@ class AkunFragment : Fragment() {
         return view
     }
 
-    fun mainButton(){
+    fun mainButton() {
         btnLogout.setOnClickListener {
             s.setStatusLogin(false)
         }
@@ -59,7 +56,7 @@ class AkunFragment : Fragment() {
 
     fun setData() {
 
-        if (s.getUser() == null){
+        if (s.getUser() == null) {
 //            val intent = Intent(activity, LoginActivity::class.java)
 //            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
 //            startActivity(intent)
