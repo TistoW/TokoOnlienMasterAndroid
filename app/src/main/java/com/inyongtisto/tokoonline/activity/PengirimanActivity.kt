@@ -172,7 +172,7 @@ class PengirimanActivity : AppCompatActivity() {
         })
     }
 
-    var ongkir = ""
+    var ongkir = "0"
     var kurir = ""
     var jasaKirim = ""
     private fun displayOngkir(_kurir: String, arrayList: ArrayList<Costs>) {

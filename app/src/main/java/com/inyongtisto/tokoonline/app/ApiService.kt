@@ -1,10 +1,8 @@
 package com.inyongtisto.tokoonline.app
 
 import com.inyongtisto.tokoonline.model.Chekout
-import com.inyongtisto.tokoonline.model.Produk
 import com.inyongtisto.tokoonline.model.ResponModel
 import com.inyongtisto.tokoonline.model.rajaongkir.ResponOngkir
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -16,14 +14,16 @@ interface ApiService {
             @Field("name") name: String,
             @Field("email") email: String,
             @Field("phone") nomortlp: String,
-            @Field("password") password: String
+            @Field("password") password: String,
+            @Field("fcm") fcm: String
     ): Call<ResponModel>
 
     @FormUrlEncoded
     @POST("login")
     fun login(
             @Field("email") email: String,
-            @Field("password") password: String
+            @Field("password") password: String,
+            @Field("fcm") fcm: String
     ): Call<ResponModel>
 
     @POST("chekout")

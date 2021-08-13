@@ -1,14 +1,13 @@
 package com.inyongtisto.tokoonline.activity
 
-import android.R.attr.label
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.inyongtisto.tokoonline.MainActivity
 import com.inyongtisto.tokoonline.R
 import com.inyongtisto.tokoonline.app.ApiConfig
@@ -23,16 +22,33 @@ import retrofit2.Response
 class LoginActivity : AppCompatActivity() {
 
     lateinit var s: SharedPref
+    lateinit var fcm: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
         s = SharedPref(this)
+        getFcm()
 
         btn_login.setOnClickListener {
             login()
         }
+    }
+
+    private fun getFcm() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("Respon", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+            fcm = token.toString()
+            // Log and toast
+            Log.d("respon fcm:", token.toString())
+        })
     }
 
     fun login() {
@@ -47,7 +63,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         pb.visibility = View.VISIBLE
-        ApiConfig.instanceRetrofit.login(edt_email.text.toString(), edt_password.text.toString()).enqueue(object : Callback<ResponModel> {
+        ApiConfig.instanceRetrofit.login(edt_email.text.toString(), edt_password.text.toString(), fcm).enqueue(object : Callback<ResponModel> {
             override fun onFailure(call: Call<ResponModel>, t: Throwable) {
                 pb.visibility = View.GONE
                 Toast.makeText(this@LoginActivity, "Error:" + t.message, Toast.LENGTH_SHORT).show()

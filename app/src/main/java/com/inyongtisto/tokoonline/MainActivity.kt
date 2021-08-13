@@ -50,21 +50,6 @@ class MainActivity : AppCompatActivity() {
         setUpBottomNav()
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessage, IntentFilter("event:keranjang"))
-
-
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                Log.w("Respon", "Fetching FCM registration token failed", task.exception)
-                return@OnCompleteListener
-            }
-
-            // Get new FCM registration token
-            val token = task.result
-
-            // Log and toast
-            Log.d("respon fcm:", token.toString())
-            Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
-        })
     }
 
     val mMessage: BroadcastReceiver = object : BroadcastReceiver() {

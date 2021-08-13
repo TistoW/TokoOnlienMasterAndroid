@@ -3,8 +3,11 @@ package com.inyongtisto.tokoonline.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.inyongtisto.tokoonline.MainActivity
 import com.inyongtisto.tokoonline.R
 import com.inyongtisto.tokoonline.app.ApiConfig
@@ -18,12 +21,14 @@ import retrofit2.Response
 class RegisterActivity : AppCompatActivity() {
 
     lateinit var s: SharedPref
+    lateinit var fcm: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
         s = SharedPref(this)
+        getFcm()
 
         btn_register.setOnClickListener {
             register()
@@ -32,6 +37,21 @@ class RegisterActivity : AppCompatActivity() {
         btn_google.setOnClickListener {
             dataDummy()
         }
+    }
+
+    private fun getFcm() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("Respon", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+            fcm = token.toString()
+            // Log and toast
+            Log.d("respon fcm:", token.toString())
+        })
     }
 
     fun dataDummy() {
@@ -61,7 +81,7 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         pb.visibility = View.VISIBLE
-        ApiConfig.instanceRetrofit.register(edt_nama.text.toString(), edt_email.text.toString(), edt_phone.text.toString(), edt_password.text.toString()).enqueue(object : Callback<ResponModel> {
+        ApiConfig.instanceRetrofit.register(edt_nama.text.toString(), edt_email.text.toString(), edt_phone.text.toString(), edt_password.text.toString(), fcm).enqueue(object : Callback<ResponModel> {
 
             override fun onFailure(call: Call<ResponModel>, t: Throwable) {
                 pb.visibility = View.GONE
